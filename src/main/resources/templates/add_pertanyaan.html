@@ -10,34 +10,34 @@
 <body>
 <div class="container-sm">	
 <div class="my-10 p-10 bg-body rounded shadow-sm">
-<form th:action="@{/pertanyaan/vieew}" th:object="${pertanyaan}" method="post" enctype="multipart/form-data">
+<form th:action="@{/pertanyaan/view}" th:object="${pertanyaannya}" method="post" enctype="multipart/form-data">
 <div class="mb-3">
   <label for="nim" class="form-label">Pertanyaan</label>
-  <input type="text" class="form-control" id="pertanyaan1" placeholder="Pertanyaan1" th:field="*{pertanyaan1}">
+  <input type="text" class="form-control" name="pertanyaan1" placeholder="Pertanyaan1" th:field="*{pertanyaan1}">
 </div>
 <div class="mb-3">
   <label for="nim" class="form-label">Jawaban 1 </label>
-  <input type="text" class="form-control" id="jawaban1" placeholder="Jawaban1" th:field="*{jawaban1}">
+  <input type="text" class="form-control" name="jawaban1" placeholder="Jawaban1" th:field="*{jawaban1}">
 </div>
 <div class="mb-3">
   <label for="nim" class="form-label">Jawaban 2 </label>
-  <input type="text" class="form-control" id="jawaban2" placeholder="Jawaban2" th:field="*{jawaban2}">
+  <input type="text" class="form-control" name="jawaban2" placeholder="Jawaban2" th:field="*{jawaban2}">
 </div>
 <div class="mb-3">
   <label for="nim" class="form-label">Jawaban 3 </label>
-  <input type="text" class="form-control" id="jawaban3" placeholder="Jawaban3" th:field="*{jawaban3}">
+  <input type="text" class="form-control" name="jawaban3" placeholder="Jawaban3" th:field="*{jawaban3}">
 </div>
 <div class="mb-3">
   <label for="nim" class="form-label">Jawaban 4 </label>
-  <input type="text" class="form-control" id="jawaban4" placeholder="Jawaban4" th:field="*{jawaban4}">
+  <input type="text" class="form-control" name="jawaban4" placeholder="Jawaban4" th:field="*{jawaban4}">
 </div>
 <div class="mb-3">
   <label for="nim" class="form-label">Jawaban Benar </label>
-  <input type="text" class="form-control" id="jawabanBenar" placeholder="JawabanBenar" th:field="*{jawabanBenar}">
+  <input type="text" class="form-control" name="jawabanBenar" placeholder="JawabanBenar" th:field="*{jawabanBenar}">
 </div>
 <div class="mb-3">
   <label for="formFile" class="form-label">Status Gambar</label>
-  <input class="form-control" th:name="file" type="file" id="formFile" th:value="*{statusGambar}">
+    <input class="form-control" th:name="file" type="file" id="formFile" th:value="*{statusGambar}">
 </div>
 
 <input type="hidden" th:field="*{id}">

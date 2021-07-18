@@ -10,19 +10,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.kuliah.main.entity.AdminUser;
-import com.kuliah.main.services.ModelAdminUser;
+import com.kuliah.main.repository.AdminUserRepository;
 
 @Controller
 public class AdminUserPage {
 	
 	@Autowired
-	ModelAdminUser modelAdminUser;
+	AdminUserRepository adminUserRepo;
 	
 	
 	@GetMapping("/adminuser/view")
 	public String viewIndexAdminUser(Model model) {
 		
-		model.addAttribute("listAdminUser",modelAdminUser.getAllAdminUser());
+		model.addAttribute("listAdminUser",adminUserRepo.findAll());
 		model.addAttribute("active",1);
 		model.addAttribute("test","Test Aja");
 		
@@ -48,32 +48,32 @@ public class AdminUserPage {
 		String encodedPassword = passwordEncoder.encode(plainPassword);
         adminuser.setPassword(encodedPassword);		
 		
-		this.modelAdminUser.addAdminUser(adminuser);
-		model.addAttribute("listAdminUser",modelAdminUser.getAllAdminUser());
+		this.adminUserRepo.save(adminuser);
+		model.addAttribute("listAdminUser",adminUserRepo.findAll());
 		
 		
 		return "redirect:/adminuser/view";
 	}
 	
 	
-	@GetMapping("/adminuser/update/{id}")
-	public String viewUpdateAdminUser(@PathVariable String id, Model model) {
-		
-		AdminUser adminuser = modelAdminUser.getAdminUserById(id);
-		// buat penampung data adminuser di halaman htmlnya
-		model.addAttribute("adminuser",adminuser);
-		
-		return "add_adminuser";
-	}
+//	@GetMapping("/adminuser/update/{id}")
+//	public String viewUpdateAdminUser(@PathVariable int id, Model model) {
+//		
+//		AdminUser adminuser = adminUserRepo.findById(id);
+//		// buat penampung data adminuser di halaman htmlnya
+//		model.addAttribute("adminuser",adminuser);
+//		
+//		return "add_adminuser";
+//	}
 	
-	@GetMapping("/adminuser/delete/{id}")
-	public String deleteAdminUser(@PathVariable String id, Model model) {
-		
-		this.modelAdminUser.deleteAdminUser(id);
-		model.addAttribute("listAdminUser",modelAdminUser.getAllAdminUser());
-		
-		
-		return "redirect:/adminuser/view";
-	}
+//	@GetMapping("/adminuser/delete/{id}")
+//	public String deleteAdminUser(@PathVariable String id, Model model) {
+//		
+//		this.adminUserRepo.deleteAdminUser(id);
+//		model.addAttribute("listAdminUser",adminUserRepo.getAllAdminUser());
+//		
+//		
+//		return "redirect:/adminuser/view";
+//	}
 
 }

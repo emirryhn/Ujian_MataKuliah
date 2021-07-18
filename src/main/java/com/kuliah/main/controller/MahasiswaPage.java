@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.kuliah.main.entity.Mahasiswa;
-import com.kuliah.main.services.ModelMahasiswa;
+import com.kuliah.main.repository.MahasiswaRepository;
 
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -29,92 +30,44 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 public class MahasiswaPage {
 	
 	@Autowired
-	ModelMahasiswa modelMahasiswa;
-	
+	MahasiswaRepository mahasiswaRepo;
 	
 	@GetMapping("/mahasiswa/view")
-	public String viewIndexMahasiswa(Model model) {
-		
-		model.addAttribute("listMahasiswa",modelMahasiswa.getAllMahasiswa());
-		model.addAttribute("active",1);
-		model.addAttribute("test","Test Aja");
-		
-		return "view_mahasiswa";
+	public String viewMahasiswa(Model model) {
+		model.addAttribute("listMahasiswa", mahasiswaRepo.findAll());
+		return "view_mahasiswa.html";
 	}
 	
-	
-	@GetMapping("/mahasiswa/add")
-	public String viewAddMahasiswa(Model model) {
-		
-		// buat penampung data mahasiswa di halaman htmlnya
-		model.addAttribute("mahasiswa",new Mahasiswa());
-		
-		return "add_mahasiswa";
+	@GetMapping("/mahasiswa/add/")
+	public String addMahasiswaPage(Model model) {
+		model.addAttribute("mahasiswa", new Mahasiswa());
+		return "add_mahasiswa.html";
 	}
 	
-	@PostMapping("/mahasiswa/view")
-	  public String addMahasiswa(@ModelAttribute Mahasiswa mahasiswa, Model model) {
-		
-		// buat penampung data mahasiswa di halaman htmlnya
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		String plainPassword = mahasiswa.getPassword();
-		String encodedPassword = passwordEncoder.encode(plainPassword);
-        mahasiswa.setPassword(encodedPassword);		
-		
-		this.modelMahasiswa.addMahasiswa(mahasiswa);
-		model.addAttribute("listMahasiswa",modelMahasiswa.getAllMahasiswa());
-		
-		
+	@PostMapping("/mahasiswa/add")
+	public String addMahasiswa(@ModelAttribute Mahasiswa mahasiswa) {
+		BCryptPasswordEncoder passEnc = new BCryptPasswordEncoder();
+		String newPass = passEnc.encode(mahasiswa.getPassword());
+		mahasiswa.setPassword(newPass);
+		mahasiswaRepo.save(mahasiswa);
 		return "redirect:/mahasiswa/view";
 	}
 	
+	//gabisa delete karena reference table
+	@GetMapping("/mahasiswa/delete/{id}")
+	public String deleteMahasiswa(@PathVariable Long id, Model model) {
+		this.mahasiswaRepo.deleteById(id);
+		model.getAttribute("listMahasiswa");
+		return "redirect:/mahasiswa/view";
+	}
 	
 	@GetMapping("/mahasiswa/update/{id}")
-	public String viewUpdateMahasiswa(@PathVariable String id, Model model) {
+	public String updateMahasiswa(@PathVariable Long id, Model model) {
 		
-		Mahasiswa mahasiswa = modelMahasiswa.getMahasiswaById(id);
-		// buat penampung data mahasiswa di halaman htmlnya
-		model.addAttribute("mahasiswa",mahasiswa);
+		Optional<Mahasiswa> mahasiswa = this.mahasiswaRepo.findById(id);
+		model.addAttribute("mahasiswa", mahasiswa);
 		
-		return "add_mahasiswa";
+		return"/mahasiswa/add";
 	}
 	
-	@GetMapping("/mahasiswa/delete/{id}")
-	public String deleteMahasiswa(@PathVariable String id, Model model) {
-		
-		this.modelMahasiswa.deleteMahasiswa(id);
-		model.addAttribute("listMahasiswa",modelMahasiswa.getAllMahasiswa());
-		
-		
-		return "redirect:/mahasiswa/view";
-	}
-	
-	@GetMapping("/mahasiswa/report/pdf")
-	public void exportPDF() {
-		try {
-		File file = ResourceUtils.getFile("classpath:mahasiswa.jrxml");
-		JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-		
-		List<Mahasiswa> lstMahasiswa = modelMahasiswa.getAllMahasiswa();
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(lstMahasiswa);
-        
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("createdBy","Juaracoding");
-        
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
-        String path = "D:\\mahasiswa.pdf";
-        JasperExportManager.exportReportToPdfFile(jasperPrint,path);
-        
-       
-		
-		}catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e.getMessage());
-		}
-		
-		
-		
-				
-	}
-
 }

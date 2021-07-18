@@ -13,7 +13,7 @@
 
 
 
-<form action="#" th:action="@{/mahasiswa/view}" th:object="${mahasiswa}" method="post">
+<form action="#" th:action="@{/mahasiswa/add}" th:object="${mahasiswa}" method="post">
 <div class="mb-3">
   <label for="nim" class="form-label">Nim</label>
   <input type="text" class="form-control" id="nim" placeholder="NIM Mahasiwa" th:field="*{nim}">

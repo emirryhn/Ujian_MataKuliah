@@ -5,17 +5,9 @@
 		<![CDATA[bWF0YWt1bGlhaC5tYWhhc2lzd2EgQVMgLDEzNiw3MyxmNWE4ZDY3Zi1mMzlkLTQxYjAtYThiZC00
 ZWNkYjU0MTBlMmQ7]]>
 	</property>
-	
-	
-	<field name="jenisKelamin" class="java.lang.String">
-		
-	</field>
-	<field name="namaMahasiswa" class="java.lang.String">
-		
-	</field>
-	<field name="nim" class="java.lang.String">
-		
-	</field>
+	<field name="jenisKelamin" class="java.lang.String"/>
+	<field name="namaMahasiswa" class="java.lang.String"/>
+	<field name="nim" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>

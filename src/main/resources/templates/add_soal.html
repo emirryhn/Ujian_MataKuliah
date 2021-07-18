@@ -12,7 +12,7 @@
 
 
 
-<form action="#" th:action="@{/soal/view}" th:object="${soal}" method="post">
+<form action="#" th:action="@{/soal/add}" th:object="${soal}" method="post">
 
 <div class="mb-3">
   <label for="nama" class="form-label">Nama Soal</label>
@@ -31,7 +31,7 @@
             multiple="multiple"
             th:field="*{lstPertanyaan}">
 
-        <option th:each="pertanyaan,row : ${listPertanyaan}"
+        <option th:each="pertanyaan : ${listPertanyaan}"
                 th:value="${pertanyaan.id}"
                 th:text="${pertanyaan.pertanyaan1}"></option>
 </select>

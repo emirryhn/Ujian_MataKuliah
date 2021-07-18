@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kuliah.main.repository.MahasiswaRepository;
-import com.kuliah.main.services.ModelMahasiswa;
 
 @Controller
 public class HomePage {

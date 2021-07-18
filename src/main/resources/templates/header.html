@@ -10,11 +10,11 @@
       <div class="navbar-nav">
         <a th:attr="class=${active == 0 ? 'nav-link active' : 'nav-link'}"  href="#">Home</a>
        
-        <a th:attr="class=${active == 1 ? 'nav-link active' : 'nav-link'}"  th:href="@{'/mahasiswa/view/'}">Lihat Mahasiswa </a>
-        <a th:attr="class=${active ==2 ? 'nav-link active' : 'nav-link'}"  th:href="@{'/dosen/view/'}">Lihat Dosen </a>
-        <a th:attr="class=${active == 3 ? 'nav-link active' : 'nav-link'}"   th:href="@{'/matakuliah/view/'}">Lihat Mata Kuliah</a>
-        <a th:attr="class=${active == 5 ? 'nav-link active' : 'nav-link'}"   th:href="@{'/soal/view/'}">Lihat Soal</a>
-        <a th:attr="class=${active ==4 ? 'nav-link active' : 'nav-link'}"  th:href="@{'/pertanyaan/view/'}">Lihat Pertanyaan</a>
+        <a th:attr="class=${active == 1 ? 'nav-link active' : 'nav-link'}"  th:href="@{/mahasiswa/view}">Lihat Mahasiswa </a>
+        <a th:attr="class=${active ==2 ? 'nav-link active' : 'nav-link'}"  th:href="@{/dosen/view}">Lihat Dosen </a>
+        <a th:attr="class=${active == 3 ? 'nav-link active' : 'nav-link'}"   th:href="@{/matakuliah/view}">Lihat Mata Kuliah</a>
+        <a th:attr="class=${active == 5 ? 'nav-link active' : 'nav-link'}"   th:href="@{/soal/view}">Lihat Soal</a>
+        <a th:attr="class=${active ==4 ? 'nav-link active' : 'nav-link'}"  th:href="@{/pertanyaan/view}">Lihat Pertanyaan</a>
         <div sec:authorize="hasRole('ROLE_ADMIN')">
           <a th:attr="class=${active ==6 ? 'nav-link active' : 'nav-link'}"  th:href="@{'/plotmatakuliah/view/'}">Plot Mata Kuliah</a>
        </div>
