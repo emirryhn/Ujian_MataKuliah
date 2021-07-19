@@ -64,10 +64,10 @@ public class MahasiswaPage {
 	@GetMapping("/mahasiswa/update/{id}")
 	public String updateMahasiswa(@PathVariable Long id, Model model) {
 		
-		Optional<Mahasiswa> mahasiswa = this.mahasiswaRepo.findById(id);
+		Optional<Mahasiswa> mahasiswa = mahasiswaRepo.findById(id);
 		model.addAttribute("mahasiswa", mahasiswa);
 		
-		return"/mahasiswa/add";
+		return"add_mahasiswa";
 	}
 	
 }
